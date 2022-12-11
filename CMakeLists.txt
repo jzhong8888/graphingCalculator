@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(barkeshli_s22)
 
-# GoogleTest requires at least C++11
-set(CMAKE_CXX_STANDARD 11)
+
 
 #. . . . . . . . . . . . . . . . . . . .
 include(GNUInstallDirs)
@@ -40,7 +39,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-
+# GoogleTest requires at least C++11
+set(CMAKE_CXX_STANDARD 11)
  
 enable_testing() 
 
@@ -79,5 +79,12 @@ ADD_EXECUTABLE(testB
 TARGET_LINK_LIBRARIES(basic_test gtest)
 TARGET_LINK_LIBRARIES(testB gtest)
 
- 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+find_package(SFML REQUIRED system window graphics network audio)
+if (SFML_FOUND)
+include_directories(${SFML_INCLUDE_DIR})
+target_link_libraries(main ${SFML_LIBRARIES})
+target_link_libraries(basic_test ${SFML_LIBRARIES})
+target_link_libraries(testB ${SFML_LIBRARIES})
+endif()
 
