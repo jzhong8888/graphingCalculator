@@ -161,7 +161,7 @@ void animate::update(){
                                sf::Mouse::getPosition(window).y-5);
 
         //mouse location text for sidebar:
-        sidebar[SB_MOUSE_POSITION] = mouse_pos_string(window);
+        sidebar[SB_MOUSE_POSITION] = mouse_pos_string(window, _info);
 
     }
 }
@@ -281,8 +281,8 @@ void animate::processEvents()
                break;
 
            case sf::Event::MouseMoved:
-                // mouseX = get_graphpoint_x(event.mouseMove.x);
-                // mouseY = get_graphpoint_y(event.mouseMove.y);
+                //  mouseX = get_graphpoint_x(event.mouseMove.x);
+                //  mouseY = get_graphpoint_y(event.mouseMove.y);
                 mouseX = event.mouseMove.x;
                 mouseY = event.mouseMove.y;
                 //Do something with it if you need to...
@@ -291,12 +291,12 @@ void animate::processEvents()
                    if (event.mouseButton.button == sf::Mouse::Right)
                    {
                        sidebar[SB_MOUSE_CLICKED] = "RIGHT CLICK " +
-                               mouse_pos_string(window);
+                               mouse_pos_string(window, _info);
 
                    }
                    else{
                        sidebar[SB_MOUSE_CLICKED] = "LEFT CLICK " +
-                               mouse_pos_string(window);
+                               mouse_pos_string(window, _info);
                    }
                    break;
 
@@ -358,7 +358,21 @@ void animate::run()
    cout<<endl<<"-------ANIMATE MAIN LOOP EXITING ------------"<<endl;
 }
 
-string mouse_pos_string(sf::RenderWindow& window){
+string mouse_pos_string(sf::RenderWindow& window, GraphInfo* graph_ptr){
+    
+    float screen_x = sf::Mouse::getPosition(window).x;
+    float screen_y = sf::Mouse::getPosition(window).y;
+    float delta = (graph_ptr->_domain.y - graph_ptr->_domain.x) / (graph_ptr->_num_of_points - 1) - 0.0000000000001;
+    int graph_x, graph_y;
+    float graph_unit = graph_ptr->_screen_size.x / (graph_ptr->_num_of_points - 1);
+    float screen_origin_x = (0 + (0 - graph_ptr->_domain.x))* (graph_unit/delta);
+    float screen_origin_y = graph_ptr->_screen_size.y / 2;
+    graph_x = (screen_x - screen_origin_x) / (graph_unit/delta);
+    graph_y = (screen_y - screen_origin_y) / (graph_unit/delta);
+
+    return "(" + to_string(graph_x) + ", " + to_string(-graph_y) + ")";
+
+
     return "(" +
             to_string(sf::Mouse::getPosition(window).x) +
             ", " +

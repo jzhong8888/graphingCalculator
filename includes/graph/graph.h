@@ -87,7 +87,7 @@ public:
 
     void draw(sf::RenderWindow& window, GraphInfo* &graph_ptr){
         
-        update(graph_ptr);
+        //update(graph_ptr);
 
         for (int i = 0; i < _info->_num_of_points; i++){
             window.draw(_screen_points[i]);

@@ -94,8 +94,8 @@ void System::step(GraphInfo* graph_ptr, int command){
     // else if (command == CMD_ENTER_EQUATION){
     //     graph_ptr->_equation = 
     // }
-    // _graph_ptr = graph_ptr;
-    // _g.update(graph_ptr);
+     _graph_ptr = graph_ptr;
+     _g.update(graph_ptr);
 }
 
 

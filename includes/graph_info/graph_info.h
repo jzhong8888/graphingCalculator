@@ -66,13 +66,11 @@ struct GraphInfo {
     //     _screen_origin = screen_origin;
     // }
 
-
     string _equation;
     sf::Vector2f _domain;
     int _num_of_points;
     sf::Vector2f _screen_size;
     // sf::Vector2f _screen_origin;
-
 
 };
 

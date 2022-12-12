@@ -35,7 +35,7 @@ private:
     
 };
 
-string mouse_pos_string(sf::RenderWindow& window);
+string mouse_pos_string(sf::RenderWindow& window, GraphInfo* graph_ptr);
 
 
 
